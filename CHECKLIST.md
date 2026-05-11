@@ -48,13 +48,14 @@ Legend: `[ ]` pending · `[x]` done · `[~]` in progress
 - [x] Ran `php artisan migrate` and verified schema in SQLite (via Boost `database-schema`).
 
 ## Phase 2 — Models & Scoping
-- [ ] `App\Models\Profile` with `$fillable`, casts (enum, date, decimal), `belongsTo(User::class)`.
-- [ ] `App\Models\HealthRecord` with casts (`date` → date) and `belongsTo(User::class)`.
-- [ ] `App\Models\Meal` with enum cast for `meal_type` and `belongsTo(User::class)`.
-- [ ] `App\Models\User` — add `hasOne(Profile::class)`, `hasMany(HealthRecord::class)`, `hasMany(Meal::class)`.
-- [ ] **Global Scope** `App\Models\Scopes\OwnedByAuthUser` applied to `Profile`, `HealthRecord`, `Meal` — filters by `auth()->id()` automatically.
-- [ ] Booted `creating` hook on each scoped model to auto-fill `user_id = auth()->id()`.
-- [ ] Factories + seeders (for tests only; not for production data).
+- [x] `App\Models\Scopes\OwnedByAuthUser` — global scope that filters by `auth()->id()` when a user is authenticated (no-op otherwise so artisan/tinker/factories still work).
+- [x] `App\Models\Concerns\BelongsToAuthUser` — trait that registers the scope, the `creating` auto-fill hook, and the `user()` relation in one place. Eloquent's `boot{TraitName}` convention applies the scope to every model that uses the trait.
+- [x] `App\Models\Profile` with `#[Fillable]`, `casts()` (Gender enum, dob date, decimals), `BelongsToAuthUser` trait.
+- [x] `App\Models\HealthRecord` with `#[Fillable]`, `casts()` (date + decimals), `BelongsToAuthUser` trait.
+- [x] `App\Models\Meal` with `#[Fillable]`, `casts()` (MealType enum, date), `BelongsToAuthUser` trait.
+- [x] `App\Models\User` — added `profile()` (HasOne), `healthRecords()` (HasMany), `meals()` (HasMany) relations.
+- [x] Factories: `ProfileFactory`, `HealthRecordFactory`, `MealFactory` with sensible Faker defaults (gender-aware `baseline_hip`, partial-entry-friendly nullable columns, realistic biometric ranges).
+- [x] Tinker smoke-test confirmed: (a) global scope filters per-user (Alice sees 3 records, Bob sees 5), (b) `creating` hook auto-fills `user_id`, (c) Gender/MealType enum casts roundtrip, (d) `dob` casts to `Carbon`.
 
 ## Phase 3 — Onboarding (Mandatory Baseline)
 - [ ] Middleware `App\Http\Middleware\EnsureProfileComplete` — redirects to onboarding wizard if `auth()->user()->profile` is missing.

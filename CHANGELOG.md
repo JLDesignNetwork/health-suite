@@ -49,4 +49,12 @@ and this project adheres to [Semantic Versioning 2.0.0](https://semver.org/spec/
 
 All three migrations use `foreignIdFor(User::class)->constrained()->cascadeOnDelete()` for refactor-safe FKs.
 
+### Added — Phase 2 (Models & Scoping)
+- `App\Models\Scopes\OwnedByAuthUser` — global Eloquent scope filtering by `auth()->id()` when a user is authenticated. Deliberately a no-op when no user is logged in so artisan, tinker, factories, and seeders are not crippled; defence-in-depth comes from policies in Phase 8 and the auto-fill `creating` hook below.
+- `App\Models\Concerns\BelongsToAuthUser` trait — single source of truth that registers the global scope, auto-fills `user_id = auth()->id()` on create (when not provided), and exposes the `user()` `BelongsTo` relation. Each scoped model just `use`s the trait.
+- `App\Models\Profile`, `App\Models\HealthRecord`, `App\Models\Meal` — all use `BelongsToAuthUser`, declare `#[Fillable]` attributes, and define a `casts()` method covering enum / date / decimal columns.
+- `App\Models\User` — added `profile()` (HasOne), `healthRecords()` (HasMany), `meals()` (HasMany) relations.
+- `Database\Factories\{ProfileFactory,HealthRecordFactory,MealFactory}` for testing — gender-aware `baseline_hip` (only set for `Gender::Female`), realistic biometric ranges, and nullable optional fields to mirror the schema.
+- Verified end-to-end via `php artisan tinker`: Alice and Bob each see only their own records (3 vs. 5 health_records, 4 vs. 7 meals), `Meal::create([...])` without `user_id` auto-fills to the authenticated user, and enum / date casts roundtrip.
+
 [Unreleased]: about:blank
