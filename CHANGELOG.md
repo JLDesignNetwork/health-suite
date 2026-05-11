@@ -41,4 +41,12 @@ and this project adheres to [Semantic Versioning 2.0.0](https://semver.org/spec/
 ### Removed
 - `resources/views/welcome.blade.php` — replaced by the auth flow.
 
+### Added — Phase 1 (Database Schema)
+- `App\Enums\Gender` (string-backed: `male` / `female`) and `App\Enums\MealType` (string-backed: `breakfast` / `lunch` / `dinner` / `snack`) — each with a `label()` helper for UI display. Migration enum lists are derived from `array_column(Enum::cases(), 'value')` so the schema and PHP cases cannot drift.
+- Migration `2026_05_11_143923_create_profiles_table` — biometrics, baseline measurements, baseline physiology, and goal fields, with a unique `user_id` FK (cascade on delete).
+- Migration `2026_05_11_143924_create_health_records_table` — body / vitals / activity columns (all nullable so partial daily entries are valid), with a composite `(user_id, date)` index for fast per-user history queries.
+- Migration `2026_05_11_143924_create_meals_table` — `meal_type`, `description`, `calories`, also indexed on `(user_id, date)`.
+
+All three migrations use `foreignIdFor(User::class)->constrained()->cascadeOnDelete()` for refactor-safe FKs.
+
 [Unreleased]: about:blank

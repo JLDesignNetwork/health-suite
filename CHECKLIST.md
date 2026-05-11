@@ -29,22 +29,23 @@ Legend: `[ ]` pending · `[x]` done · `[~]` in progress
 - [ ] Keep all assets pre-built via `npm run build` — no reliance on the Vite dev server at runtime.
 
 ## Phase 1 — Database Schema
-- [ ] Migration: `profiles` table
-    - `user_id` (FK, unique), `gender` (enum: male/female), `dob` (date), `height_cm` (decimal).
-    - Baselines: `baseline_weight`, `baseline_neck`, `baseline_waist`, `baseline_hip`, `baseline_pulse`, `baseline_systolic`, `baseline_diastolic`.
-    - Goals: `target_weight`, `daily_calorie_goal`, `daily_water_goal`, `weekly_exercise_goal`.
+- [x] PHP enums: `App\Enums\Gender` (male/female) and `App\Enums\MealType` (breakfast/lunch/dinner/snack), each with a `label()` helper.
+- [x] Migration: `profiles` table
+    - `user_id` (FK, unique, cascade onDelete), `gender` (enum), `dob` (date), `height_cm` (decimal 5,2).
+    - Baselines: `baseline_weight` (6,2), `baseline_neck` (5,2), `baseline_waist` (5,2), `baseline_hip` (5,2, nullable), `baseline_pulse`, `baseline_systolic`, `baseline_diastolic` (all unsigned smallint).
+    - Goals: `target_weight` (6,2), `daily_calorie_goal` (uint), `daily_water_goal` (4,2), `weekly_exercise_goal` (usmallint) — all nullable.
     - `timestamps`.
-- [ ] Migration: `health_records` table
-    - `user_id` (FK), `date` (date, indexed).
-    - Body: `weight`, `neck`, `waist`, `hip`.
-    - Vitals: `systolic`, `diastolic`, `pulse`.
-    - Activity: `water_intake_l`, `exercise_minutes`.
+- [x] Migration: `health_records` table
+    - `user_id` (FK, cascade onDelete), `date` (date, indexed via composite).
+    - Body: `weight` (6,2), `neck` / `waist` / `hip` (5,2) — all nullable.
+    - Vitals: `systolic`, `diastolic`, `pulse` (unsigned smallint, nullable).
+    - Activity: `water_intake_l` (4,2), `exercise_minutes` (usmallint) — nullable.
     - `timestamps`. Composite index on (`user_id`, `date`).
-- [ ] Migration: `meals` table
-    - `user_id` (FK), `date` (date, indexed), `meal_type` (enum: breakfast/lunch/dinner/snack).
-    - `description` (text), `calories` (unsigned int).
-    - `timestamps`.
-- [ ] Run `php artisan migrate` and verify schema in SQLite.
+- [x] Migration: `meals` table
+    - `user_id` (FK, cascade onDelete), `date` (date), `meal_type` (enum).
+    - `description` (string), `calories` (unsigned int).
+    - `timestamps`. Composite index on (`user_id`, `date`).
+- [x] Ran `php artisan migrate` and verified schema in SQLite (via Boost `database-schema`).
 
 ## Phase 2 — Models & Scoping
 - [ ] `App\Models\Profile` with `$fillable`, casts (enum, date, decimal), `belongsTo(User::class)`.
