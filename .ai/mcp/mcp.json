@@ -1,0 +1,11 @@
+{
+  "mcpServers": {
+    "laravel-boost": {
+      "command": "/Users/jefflangdon/Library/Application Support/Herd/bin/php85",
+      "args": [
+        "/Volumes/SanDisk 124/Sites/iHealth/artisan",
+        "boost:mcp"
+      ]
+    }
+  }
+}
