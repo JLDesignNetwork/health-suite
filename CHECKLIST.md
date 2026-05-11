@@ -10,12 +10,16 @@ Legend: `[ ]` pending · `[x]` done · `[~]` in progress
 - [x] Set PhpStorm project PHP language level to **8.5** (`.idea/php.xml`).
 - [x] Bump `composer.json` PHP requirement to `^8.5`.
 - [x] Initialise `CHANGELOG.md` (Keep a Changelog 1.1.0 + SemVer).
-- [ ] Confirm Laravel Herd (or local) is serving PHP 8.5 for this site (Herd CLI currently reports 8.4.20 — needs investigation).
+- [x] Confirm Laravel Herd (or local) is serving PHP 8.5 for this site. (`herd isolate 8.5` set; CLI invoked via `php85` until Herd default is bumped — noted below.)
 - [x] **UI stack decided: Livewire (with Volt where it tightens code).** Overrides the README's "Filament" mention. Tailwind is already installed.
-- [x] **Auth scaffolding decided: Livewire starter kit auth, with email verification + password reset disabled** (offline-first; see "NativePHP discipline" below).
+- [x] **Auth scaffolding decided: Strategy B — manual minimal install** (livewire/livewire + livewire/volt), with email verification and password reset deliberately omitted (offline-first; see "NativePHP discipline" below).
 - [x] **Distribution target decided: NativePHP at v1.0** — single-tenant per household, no internet required.
-- [ ] Initialise git repository and commit baseline.
-- [ ] Install Livewire starter kit (strategy TBC).
+- [x] Initialise git repository and commit baseline (commit `5664883`).
+- [x] Install Livewire + Volt and scaffold minimal auth (login, register, logout, dashboard placeholder) with `guest` and `app` layouts.
+- [x] Publish translation files (`php artisan lang:publish`) so `auth.failed` / `auth.throttle` resolve to friendly English.
+
+### Known toolchain quirk
+- Herd's global CLI symlink (`php`) still points to `php84`. We invoke composer/artisan via `/Users/.../Herd/bin/php85` for now. Long-term fix: bump Herd's global default to 8.5 *or* add a shell alias / `direnv` hook in this directory. Not blocking.
 
 ### NativePHP discipline (applies to every phase from now on)
 - [ ] Never hardcode filesystem paths. Always use `storage_path()`, `database_path()`, `config_path()`, `resource_path()`, `public_path()`.
