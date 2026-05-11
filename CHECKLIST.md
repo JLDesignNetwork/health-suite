@@ -69,13 +69,13 @@ Legend: `[ ]` pending · `[x]` done · `[~]` in progress
 - [ ] Form requests with strict validation (positive decimals, sane DOB range, enum constraints).
 
 ## Phase 4 — HealthService (Core Calculations)
-- [ ] Class `App\Services\HealthService` — single dependency-injected service for all derived metrics.
-- [ ] `bmi(float $weightKg, float $heightCm): float`.
-- [ ] `bodyFatPercent(string $gender, float $waist, float $neck, ?float $hip, float $height): float` — U.S. Navy formula (male / female branches).
-- [ ] `pulseDeviation(int $current, int $baseline): float` — returns signed percentage.
-- [ ] `bloodPressureVariance(int $systolic, int $diastolic, array $baseline): array` — flags readings >15% from baseline.
-- [ ] `weightProgress(float $current, float $baseline): float` — `current - baseline` (negative = loss).
-- [ ] Unit tests with Pest covering each formula (use known reference values from the README).
+- [x] `App\Services\HealthService` — single dependency-injected service for all derived metrics. `final class` (instance methods, container-resolvable).
+- [x] `bmi(float $weightKg, float $heightCm): float`.
+- [x] `bodyFatPercent(Gender $gender, float $waist, float $neck, float $height, ?float $hip = null): float` — U.S. Navy metric formula. Accepts the `Gender` enum (type-safe) rather than a string; throws `ValueError` if hip is missing for female calculation.
+- [x] `pulseDeviation(int $current, int $baseline): float` — signed percentage.
+- [x] `bloodPressureVariance(int $currentSystolic, int $currentDiastolic, int $baselineSystolic, int $baselineDiastolic): BloodPressureVariance` — returns a `final readonly` DTO with per-reading percent + per-reading threshold flags + an `anyExceeds()` helper. Threshold is a `public const float BP_THRESHOLD = 0.15;`.
+- [x] `weightProgress(float $current, float $baseline): float` — `current - baseline`.
+- [x] Pest unit tests in `tests/Unit/HealthServiceTest.php` — 16 tests, 28 assertions, all green. Covers reference values, edge cases (zero deviation, symmetric negative variance, missing hip), and float stability.
 
 ## Phase 5 — Daily Entry UI
 - [ ] HealthRecord create/edit form (date defaults to today; one entry per day per user — soft constraint).

@@ -57,4 +57,15 @@ All three migrations use `foreignIdFor(User::class)->constrained()->cascadeOnDel
 - `Database\Factories\{ProfileFactory,HealthRecordFactory,MealFactory}` for testing — gender-aware `baseline_hip` (only set for `Gender::Female`), realistic biometric ranges, and nullable optional fields to mirror the schema.
 - Verified end-to-end via `php artisan tinker`: Alice and Bob each see only their own records (3 vs. 5 health_records, 4 vs. 7 meals), `Meal::create([...])` without `user_id` auto-fills to the authenticated user, and enum / date casts roundtrip.
 
+### Added — Phase 4 (HealthService)
+- `App\Services\HealthService` (`final class`) — stateless, container-resolvable service implementing every derived metric in the V4.0 spec:
+    - `bmi(float, float): float` — metric BMI.
+    - `bodyFatPercent(Gender, float, float, float, ?float): float` — U.S. Navy metric BFP, branched by enum; inline `throw new ValueError(...)` if hip is missing for `Gender::Female`.
+    - `pulseDeviation(int, int): float` — signed percent from baseline.
+    - `bloodPressureVariance(int, int, int, int): BloodPressureVariance` — returns the DTO below.
+    - `weightProgress(float, float): float` — `current - baseline`.
+    - Typed class constant `public const float BP_THRESHOLD = 0.15;` (PHP 8.3+ typed constants).
+- `App\Services\BloodPressureVariance` — `final readonly class` DTO carrying both percentages, both threshold flags, and an `anyExceeds()` helper. Constructor uses property promotion.
+- `tests/Unit/HealthServiceTest.php` — 16 Pest tests / 28 assertions covering: reference BMI/BFP/pulse/BP/weight values, symmetric negative BP variance, female-without-hip error case, hip-ignored-for-male, float stability, and exact-zero edge cases. All green (213ms).
+
 [Unreleased]: about:blank
