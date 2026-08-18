@@ -2,10 +2,39 @@
   {
     "id": "PROJ-TODO-01",
     "title": "Execute Orange Team Modernization, Rebranding to Health Suite & Baseline Quality Gate",
-    "status": "in-progress",
+    "status": "completed",
     "priority": "critical-1",
     "existed_since": "2606.2.0-s",
     "created_at": "2026-08-18T20:20:00+02:00",
-    "details": "Rename project from iHealth to Health Suite, scaffold .dev/ hub with multi-generational roadmap (Voice dictation, Receipt OCR, Health sync), scaffold in-repo docs/ wiki, update package metadata, and establish CI quality gates."
+    "protected": "open",
+    "details": "Renamed project from iHealth to Health Suite, scaffolded .dev/ hub with multi-generational roadmap (Voice dictation, Receipt OCR, Health sync), scaffolded in-repo docs/ wiki, updated package metadata, verified Pest/Pint quality gate, and established .github/ CI governance suite."
+  },
+  {
+    "id": "PROJ-ISSUE-01",
+    "title": "Generate Recipe times out with 500 Server Error (Maximum execution time of 30 seconds exceeded)",
+    "status": "pending",
+    "severity": "S1",
+    "priority": "high-1",
+    "existed_since": "2606.1.0-s",
+    "created_at": "2026-08-18T20:20:00+02:00",
+    "details": "Kitchen -> Recipes -> Generate Recipe throws a fatal 500 when the AI provider request exceeds PHP's 30s max_execution_time (seen in production.log against AiService::chatForRecipe()). Needs either a raised execution-time limit scoped to the AI request, an async/queued generation flow with polling, or a client-side timeout guard with a friendly retry message. Migrated from legacy BUGS.md open bug list."
+  },
+  {
+    "id": "PROJ-TODO-02",
+    "title": "macOS code signing + notarisation for native builds",
+    "status": "blocked",
+    "priority": "low-2",
+    "existed_since": "2606.1.0-s",
+    "created_at": "2026-08-18T20:20:00+02:00",
+    "details": "Deferred from Native Packaging phase: requires an Apple Developer account. Current arm64/x64 builds use an ad-hoc signature (self-distribution only); Gatekeeper requires right-click-Open on first launch. Migrated from legacy CHECKLIST.md Phase 11."
+  },
+  {
+    "id": "PROJ-TODO-03",
+    "title": "Decide on full runtime rebrand of NativePHP app identity (NATIVEPHP_APP_ID, app data directory, demo domain)",
+    "status": "blocked",
+    "priority": "medium-3",
+    "existed_since": "2606.2.0-s",
+    "created_at": "2026-08-18T20:20:00+02:00",
+    "details": "Documentation, README, and package metadata have been rebranded from iHealth to Health Suite in this pass. Runtime identifiers were deliberately left untouched: NATIVEPHP_APP_ID=com.ihealth.app (.env, not tracked), which NativePHP uses to derive the on-disk app-data directory (~/Library/Application Support/ihealth/), plus the demo seeder email domain (demo@ihealth.test) and exported filename prefixes (ihealth-backup-*, ihealth-export-*). Changing NATIVEPHP_APP_ID would silently orphan any existing local SQLite database under the old app-data path. Requires an explicit data-migration step (copy/move the app-support directory, or a migration script) before the identifier is changed — present to user before executing per Present-Before-Fix protocol."
   }
 ]
