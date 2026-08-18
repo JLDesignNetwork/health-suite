@@ -1,7 +1,7 @@
 # Health Suite
 
 [![Buy Me A Coffee](https://img.shields.io/badge/Buy%20Me%20a%20Coffee-FFDD00?style=flat-square&logo=buy-me-a-coffee&logoColor=black)](https://buymeacoffee.com/jldesignnetwork)
-![GVS](https://img.shields.io/badge/GVS-2606.2.0--s-6366f1?style=flat-square)
+![GVS](https://img.shields.io/badge/GVS-2606.2.1--s-6366f1?style=flat-square)
 
 A personal health-tracking desktop application for households. Tracks daily weight, body measurements, vitals, meals, and exercise; shows trend charts; and computes derived metrics (BMI, US Navy body fat %, blood pressure variance) relative to each user's individual baselines.
 

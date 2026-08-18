@@ -9,6 +9,11 @@ and this project adheres to [Semantic Versioning 2.0.0](https://semver.org/spec/
 
 ## [Unreleased]
 
+## [2606.2.1-s] — 2026-08-18
+
+### Fixed
+- `.github/workflows/ci.yml` — Pest ran without building `public/build/manifest.json`, failing every test that touches the app layout with a Vite manifest error. Merged the frontend build step into the PHP job ahead of Pint/Pest.
+
 ## [2606.2.0-s] — 2026-08-18
 
 ### Changed

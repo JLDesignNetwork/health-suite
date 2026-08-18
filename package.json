@@ -1,7 +1,7 @@
 {
     "$schema": "https://www.schemastore.org/package.json",
     "name": "@jldn/health-suite",
-    "version": "2606.2.0-s",
+    "version": "2606.2.1-s",
     "private": true,
     "type": "module",
     "packageManager": "pnpm@11.21.0",
