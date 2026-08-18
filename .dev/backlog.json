@@ -1,0 +1,11 @@
+[
+  {
+    "id": "PROJ-TODO-01",
+    "title": "Execute Orange Team Modernization, Rebranding to Health Suite & Baseline Quality Gate",
+    "status": "in-progress",
+    "priority": "critical-1",
+    "existed_since": "2606.2.0-s",
+    "created_at": "2026-08-18T20:20:00+02:00",
+    "details": "Rename project from iHealth to Health Suite, scaffold .dev/ hub with multi-generational roadmap (Voice dictation, Receipt OCR, Health sync), scaffold in-repo docs/ wiki, update package metadata, and establish CI quality gates."
+  }
+]

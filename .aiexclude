@@ -1,0 +1,9 @@
+.env
+.env.backup
+.env.production
+*.key
+auth.json
+database/*.sqlite
+database/*.sqlite3
+storage/*.key
+storage/app/private/**

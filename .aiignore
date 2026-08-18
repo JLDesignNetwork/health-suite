@@ -1,0 +1,14 @@
+vendor/
+node_modules/
+public/build/
+storage/framework/
+storage/logs/
+storage/pail/
+bootstrap/cache/
+nativephp/
+*.dmg
+*.zip
+*.icns
+*.ico
+composer.lock
+pnpm-lock.yaml

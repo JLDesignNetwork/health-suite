@@ -8,6 +8,7 @@ use Database\Factories\MealFactory;
 use Illuminate\Database\Eloquent\Attributes\Fillable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 #[Fillable([
     'user_id',
@@ -26,6 +27,12 @@ class Meal extends Model
         return [
             'date' => 'date',
             'meal_type' => MealType::class,
+            'calories' => 'integer',
         ];
+    }
+
+    public function mealIngredients(): HasMany
+    {
+        return $this->hasMany(MealIngredient::class);
     }
 }

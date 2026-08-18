@@ -1,0 +1,30 @@
+[
+  {
+    "id": "PROJ-IDEA-01",
+    "title": "Voice Dictation & Hands-Free Audio Entry",
+    "status": "pending",
+    "details": "Integrate speech-to-text audio input for quick logging of daily vitals, symptoms, and meal entries without typing.",
+    "created_at": "2026-08-18T20:20:00+02:00"
+  },
+  {
+    "id": "PROJ-IDEA-02",
+    "title": "Grocery Receipt & Pantry Photo OCR Scanning",
+    "status": "pending",
+    "details": "Multimodal computer vision to parse grocery store receipts or shelf photos to automatically populate pantry ingredients and quantities.",
+    "created_at": "2026-08-18T20:20:00+02:00"
+  },
+  {
+    "id": "PROJ-IDEA-03",
+    "title": "Clinical Encounter Notes & Narrative Symptom Logs",
+    "status": "pending",
+    "details": "Support freeform clinical encounter notes, doctor visit transcripts, and narrative symptom journals alongside structured numerical logs.",
+    "created_at": "2026-08-18T20:20:00+02:00"
+  },
+  {
+    "id": "PROJ-IDEA-04",
+    "title": "Apple Health & HealthKit Hardware Sync Integration",
+    "status": "pending",
+    "details": "Import data from Apple Health, Garmin, and Bluetooth smart scales/cuffs directly into local SQLite storage.",
+    "created_at": "2026-08-18T20:20:00+02:00"
+  }
+]

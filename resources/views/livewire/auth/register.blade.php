@@ -108,7 +108,11 @@ class extends Component {
     </form>
 
     <p class="mt-6 text-center text-sm text-neutral-600">
-        Already have an account?
-        <a href="{{ route('login') }}" wire:navigate class="font-medium text-neutral-900 hover:underline">Sign in</a>
+        @if (\App\Models\Setting::get('auth_mode', 'login') === 'household')
+            <a href="{{ route('household') }}" wire:navigate class="font-medium text-neutral-900 hover:underline">← Back to household</a>
+        @else
+            Already have an account?
+            <a href="{{ route('login') }}" wire:navigate class="font-medium text-neutral-900 hover:underline">Sign in</a>
+        @endif
     </p>
 </div>
