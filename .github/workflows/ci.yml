@@ -8,7 +8,7 @@ on:
 
 jobs:
   php:
-    name: PHP ${{ matrix.php }} — Pint & Pest
+    name: PHP ${{ matrix.php }} — Build, Pint & Pest
     runs-on: macos-latest
     strategy:
       matrix:
@@ -34,18 +34,6 @@ jobs:
       - name: Install Composer dependencies
         run: composer install --no-interaction --prefer-dist --no-progress
 
-      - name: Pint (dry run)
-        run: ./vendor/bin/pint --test
-
-      - name: Pest test suite
-        run: ./vendor/bin/pest --compact
-
-  frontend:
-    name: Frontend Build
-    runs-on: macos-latest
-    steps:
-      - uses: actions/checkout@v4
-
       - name: Setup pnpm
         uses: pnpm/action-setup@v4
 
@@ -55,8 +43,14 @@ jobs:
           node-version: "22"
           cache: "pnpm"
 
-      - name: Install dependencies
+      - name: Install frontend dependencies
         run: pnpm install --frozen-lockfile
 
       - name: Build assets
         run: pnpm run build
+
+      - name: Pint (dry run)
+        run: ./vendor/bin/pint --test
+
+      - name: Pest test suite
+        run: ./vendor/bin/pest --compact
