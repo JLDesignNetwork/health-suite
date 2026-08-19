@@ -35,6 +35,14 @@
     "priority": "medium-3",
     "existed_since": "2606.2.0-s",
     "created_at": "2026-08-18T20:20:00+02:00",
-    "details": "Documentation, README, and package metadata have been rebranded from iHealth to Health Suite in this pass. Runtime identifiers were deliberately left untouched: NATIVEPHP_APP_ID=com.ihealth.app (.env, not tracked), which NativePHP uses to derive the on-disk app-data directory (~/Library/Application Support/ihealth/), plus the demo seeder email domain (demo@ihealth.test) and exported filename prefixes (ihealth-backup-*, ihealth-export-*). Changing NATIVEPHP_APP_ID would silently orphan any existing local SQLite database under the old app-data path. Requires an explicit data-migration step (copy/move the app-support directory, or a migration script) before the identifier is changed — present to user before executing per Present-Before-Fix protocol."
+    "details": "Documentation, README, and package metadata have been rebranded from iHealth to Health Suite in this pass. Runtime identifiers were deliberately left untouched: NATIVEPHP_APP_ID=com.ihealth.app (.env, not tracked), which NativePHP uses to derive the on-disk app-data directory (~/Library/Application Support/ihealth/), plus the demo seeder email domain (demo@ihealth.test) and exported filename prefixes (ihealth-backup-*, ihealth-export-*). Changing NATIVEPHP_APP_ID would silently orphan any existing local SQLite database under the old app-data path. Requires an explicit data-migration step (copy/move the app-support directory, or a migration script) before the identifier is changed \u2014 present to user before executing per Present-Before-Fix protocol."
+  },
+  {
+    "id": "PROJ-TODO-04",
+    "title": "Update JLDN Frontmatter",
+    "status": "pending",
+    "details": "Update the README.md frontmatter to include the new `type` and `platform` classification keys per the updated AGENTS.md schema.",
+    "created_at": "2026-08-19T20:36:19+02:00",
+    "existed_since": "2608.1.0-a"
   }
 ]
